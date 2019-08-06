@@ -13,37 +13,54 @@
         <h1>Kari's Tic-Tac-Toe!</h1>
         <table border="1" style="background: white">
             <tr>
-                <td> <img src="./pictures/snake.jpg" width="130" data-value="snake" class="options" /> </td>
-                <td> <img src="./pictures/elephant.jpg" width="130" data-value="elephant" class="options" /> </td>
-                <td> <img src="./pictures/rhino.jpg" width="130" data-value="rhino" class="options" /> </td>
+                <td> <img src="./pictures/snake.jpg" width="130" data-value="snake" class="options" data-index="0" />
+                </td>
+                <td> <img src="./pictures/elephant.jpg" width="130" data-value="elephant" class="options"
+                        data-index="1" /> </td>
+                <td> <img src="./pictures/rhino.jpg" width="130" data-value="rhino" class="options" data-index="2" />
+                </td>
             </tr>
             <tr>
-                <td> <img src="./pictures/hipo.jpg" width="130" data-value="hipo" class="options" /> </td>
-                <td> <img src="./pictures/lion.jpg" width="130" data-value="lion" class="options" /> </td>
-                <td> <img src="./pictures/zebra.jpg" width="130" data-value="zebra" class="options" /> </td>
+                <td> <img src="./pictures/hipo.jpg" width="130" data-value="hipo" class="options" data-index="3" />
+                </td>
+                <td> <img src="./pictures/lion.jpg" width="130" data-value="lion" class="options" data-index="4" />
+                </td>
+                <td> <img src="./pictures/zebra.jpg" width="130" data-value="zebra" class="options" data-index="5" />
+                </td>
             </tr>
             <tr>
-                <td> <img src="./pictures/crocodile.jpg" width="130" data-value="crocodile" class="options" /> </td>
-                <td> <img src="./pictures/tiger.jpg" width="130" data-value="tiger" class="options" /> </td>
-                <td> <img src="./pictures/giraffe.jpg" width="130" data-value="giraffe" class="options" /> </td>
+                <td> <img src="./pictures/crocodile.jpg" width="130" data-value="crocodile" class="options"
+                        data-index="6" /> </td>
+                <td> <img src="./pictures/tiger.jpg" width="130" data-value="tiger" class="options" data-index="7" />
+                </td>
+                <td> <img src="./pictures/giraffe.jpg" width="130" data-value="giraffe" class="options"
+                        data-index="8" /> </td>
             </tr>
         </table>
+        <h2 id="winner"></h2>
     </div>
     <script>
         let isRed = 1
-
+        let casillasUsadas = {}
+        let gameCompleted = false
         let opciones = Array.from(document.querySelectorAll(".options"))
+        let winner = document.querySelector("#winner")
+        function gotLine(casilla1, casilla2, casilla3) {
+            return (casillasUsadas[casilla1] == casillasUsadas[casilla2] && casillasUsadas[casilla2] == casillasUsadas[casilla3] && casillasUsadas[casilla1])
+        }
         for (let opcion of opciones) {
             opcion.addEventListener("click", function (img) {
-                if (img.target.dataset.selected != 1) {
+                if (img.target.dataset.selected != 1 && gameCompleted == false) {
                     let message = "what animal is it?";
                     let animal = prompt(message);
                     if (animal == img.target.dataset.value) {
                         alert("Great! Well done!")
                         if (isRed == 1) {
-                            img.target.parentElement.style.background = "red"
+                            img.target.parentElement.style.background = "red";
+                            casillasUsadas[img.target.dataset.index] = "red"
                         } else {
-                            img.target.parentElement.style.background = "blue"
+                            img.target.parentElement.style.background = "blue";
+                            casillasUsadas[img.target.dataset.index] = "blue"
                         }
                         if (isRed == 1) {
                             isRed = 0
@@ -52,13 +69,35 @@
                         }
                         img.target.style.opacity = 0.5
                         img.target.dataset.selected = 1
+                        if (gotLine(0, 1, 2)) {
+                            winner.innerText = ("Team " + gotLine(0, 1, 2) + " has won!!!")
+                            gameCompleted = true
+                        } else if (gotLine(3, 4, 5)) {
+                            winner.innerText = ("Team " + gotLine(3, 4, 5) + " has won!!!")
+                            gameCompleted = true
+                        } else if (gotLine(6, 7, 8)) {
+                            winner.innerText = ("Team " + gotLine(6, 7, 8) + " has won!!!")
+                            gameCompleted = true
+                        } else if (gotLine(0, 3, 6)) {
+                            winner.innerText = ("Team " + gotLine(0, 3, 6) + " has won!!!")
+                            gameCompleted = true
+                        } else if (gotLine(1, 4, 7)) {
+                            winner.innerText = ("Team " + gotLine(1, 4, 7) + " has won!!!")
+                            gameCompleted = true
+                        } else if (gotLine(2, 5, 8)) {
+                            winner.innerText = ("Team " + gotLine(2, 5, 8) + " has won!!!")
+                            gameCompleted = true
+                        } else if (gotLine(0, 4, 8)) {
+                            winner.innerText = ("Team " + gotLine(0, 4, 8) + " has won!!!")
+                            gameCompleted = true
+                        } else if (gotLine(2, 4, 6)) {
+                            winner.innerText = ("Team " + gotLine(2, 4, 6) + " has won!!!")
+                            gameCompleted = true
+                        }
                     } else { alert("Ups! Check spelling!") }
                 }
             })
         }
-        //let message = "what animal is it?";
-        //let animal = prompt(message);
-        //if (animal == "elephant") { alert("Great! Well done!") } else { alert("Ups! Check spelling!") }
     </script>
 </body>
 
