@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kari's Tic-Tac-Toe!</title>
+</head>
+
+<body style="background: lightcyan">
+    <div style="width:390px; margin: 0 auto; text-align: center">
+        <h1>Kari's Tic-Tac-Toe!</h1>
+        <table border="1" style="background: white">
+            <tr>
+                <td> <img src="./pictures/snake.jpg" width="130" data-value="snake" class="options" /> </td>
+                <td> <img src="./pictures/elephant.jpg" width="130" data-value="elephant" class="options" /> </td>
+                <td> <img src="./pictures/rhino.jpg" width="130" data-value="rhino" class="options" /> </td>
+            </tr>
+            <tr>
+                <td> <img src="./pictures/hipo.jpg" width="130" data-value="hipo" class="options" /> </td>
+                <td> <img src="./pictures/lion.jpg" width="130" data-value="lion" class="options" /> </td>
+                <td> <img src="./pictures/zebra.jpg" width="130" data-value="zebra" class="options" /> </td>
+            </tr>
+            <tr>
+                <td> <img src="./pictures/crocodile.jpg" width="130" data-value="crocodile" class="options" /> </td>
+                <td> <img src="./pictures/tiger.jpg" width="130" data-value="tiger" class="options" /> </td>
+                <td> <img src="./pictures/giraffe.jpg" width="130" data-value="giraffe" class="options" /> </td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        let isRed = 1
+
+        let opciones = Array.from(document.querySelectorAll(".options"))
+        for (let opcion of opciones) {
+            opcion.addEventListener("click", function (img) {
+                if (img.target.dataset.selected != 1) {
+                    let message = "what animal is it?";
+                    let animal = prompt(message);
+                    if (animal == img.target.dataset.value) {
+                        alert("Great! Well done!")
+                        if (isRed == 1) {
+                            img.target.parentElement.style.background = "red"
+                        } else {
+                            img.target.parentElement.style.background = "blue"
+                        }
+                        if (isRed == 1) {
+                            isRed = 0
+                        } else {
+                            isRed = 1
+                        }
+                        img.target.style.opacity = 0.5
+                        img.target.dataset.selected = 1
+                    } else { alert("Ups! Check spelling!") }
+                }
+            })
+        }
+        //let message = "what animal is it?";
+        //let animal = prompt(message);
+        //if (animal == "elephant") { alert("Great! Well done!") } else { alert("Ups! Check spelling!") }
+    </script>
+</body>
+
+</html>
